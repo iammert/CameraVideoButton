@@ -3,6 +3,8 @@ Instagram like animated button for taking photo or recording video.
 
 <img src="https://raw.githubusercontent.com/iammert/CameraVideoButton/master/art/art.png"/>
 
+[Watch!](https://www.youtube.com/watch?v=4zmgleq5dCw)
+
 ## Usage
 
 PS. This is just a dummy view. All recording or taking picture operation is up to you.
