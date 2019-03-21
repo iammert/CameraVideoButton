@@ -54,7 +54,7 @@ allprojects {
 }
 
 dependencies {
-    implementation 'com.github.iammert:CameraVideoButton:a080822ff3'
+    implementation 'com.github.iammert:CameraVideoButton:0.1'
 }
 ```
 
