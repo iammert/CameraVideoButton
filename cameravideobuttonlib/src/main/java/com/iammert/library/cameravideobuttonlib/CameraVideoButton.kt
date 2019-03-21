@@ -3,13 +3,12 @@ package com.iammert.library.cameravideobuttonlib
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
-import android.support.v4.content.ContextCompat
+import android.support.v4.view.animation.LinearOutSlowInInterpolator
 import android.util.AttributeSet
-import android.view.View
-import android.view.MotionEvent
 import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.OvershootInterpolator
 
 class CameraVideoButton @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
 
@@ -80,8 +79,8 @@ class CameraVideoButton @JvmOverloads constructor(context: Context, attrs: Attri
     private var outerCircleBorderRect = RectF()
 
     private var outerCircleValueAnimator = ValueAnimator.ofFloat().apply {
-        interpolator = OvershootInterpolator(1f)
-        duration = 200L
+        interpolator = LinearOutSlowInInterpolator()
+        duration = MINIMUM_VIDEO_DURATION_MILLIS
         addUpdateListener {
             outerCircleCurrentSize = it.animatedValue as Float
             postInvalidate()
@@ -108,6 +107,15 @@ class CameraVideoButton @JvmOverloads constructor(context: Context, attrs: Attri
     private var innerCircleSingleTapValueAnimator = ValueAnimator.ofFloat().apply {
         interpolator = AccelerateDecelerateInterpolator()
         duration = 300L
+        addUpdateListener {
+            innerCircleCurrentSize = it.animatedValue as Float
+            postInvalidate()
+        }
+    }
+
+    private var innerCircleLongPressValueAnimator = ValueAnimator.ofFloat().apply {
+        interpolator = LinearOutSlowInInterpolator()
+        duration = MINIMUM_VIDEO_DURATION_MILLIS
         addUpdateListener {
             innerCircleCurrentSize = it.animatedValue as Float
             postInvalidate()
@@ -166,6 +174,9 @@ class CameraVideoButton @JvmOverloads constructor(context: Context, attrs: Attri
         actionListener?.onStartRecord()
         startRecordTime = System.currentTimeMillis()
 
+        innerCircleLongPressValueAnimator.setFloatValues(innerCircleCurrentSize, innerCircleMinSize * 1.75F)
+        innerCircleLongPressValueAnimator.start()
+
         outerCircleValueAnimator.setFloatValues(outerCircleCurrentSize, outerCircleMaxSize)
         outerCircleValueAnimator.start()
 
@@ -182,6 +193,9 @@ class CameraVideoButton @JvmOverloads constructor(context: Context, attrs: Attri
 
         isRecording = false
         endRecordTime = System.currentTimeMillis()
+
+        innerCircleLongPressValueAnimator.setFloatValues(innerCircleCurrentSize, innerCircleMaxSize)
+        innerCircleLongPressValueAnimator.start()
 
         outerCircleValueAnimator.setFloatValues(outerCircleCurrentSize, outerCircleMinSize)
         outerCircleValueAnimator.start()
