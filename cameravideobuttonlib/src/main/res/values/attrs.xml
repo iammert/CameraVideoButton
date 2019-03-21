@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CameraVideoButton">
+        <attr name="cvb_recording_color" format="color"/>
+    </declare-styleable>
+
+</resources>
