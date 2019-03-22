@@ -14,10 +14,6 @@ class MainActivity : AppCompatActivity() {
         val videoRecordButton = findViewById<CameraVideoButton>(R.id.button)
         videoRecordButton.setVideoDuration(1000)
         videoRecordButton.actionListener = object : CameraVideoButton.ActionListener{
-            override fun onTimeIsUp() {
-                Log.v("TEST", "onTimeIsUp")
-            }
-
             override fun onStartRecord() {
                 Log.v("TEST", "onStartRecord")
             }
