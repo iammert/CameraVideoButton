@@ -20,6 +20,8 @@ class CameraVideoButton @JvmOverloads constructor(context: Context, attrs: Attri
         fun onDurationTooShortError()
 
         fun onSingleTap()
+
+        fun onCancelled()
     }
 
     var actionListener: ActionListener? = null
@@ -151,6 +153,30 @@ class CameraVideoButton @JvmOverloads constructor(context: Context, attrs: Attri
             onLongPressEnd()
             return true
         } else true
+    }
+
+    fun cancelRecording() {
+        if(isRecording.not()){
+            return
+        }
+
+        isRecording = false
+        endRecordTime = System.currentTimeMillis()
+
+        innerCircleLongPressValueAnimator.setFloatValues(innerCircleCurrentSize, innerCircleMaxSize)
+        innerCircleLongPressValueAnimator.start()
+
+        outerCircleValueAnimator.setFloatValues(outerCircleCurrentSize, outerCircleMinSize)
+        outerCircleValueAnimator.start()
+
+        outerCircleBorderValueAnimator.cancel()
+
+        alphaAnimator.setFloatValues(1f, 0f)
+        alphaAnimator.start()
+
+        actionListener?.onCancelled()
+
+        resetRecordingValues()
     }
 
     fun enableVideoRecording(enableVideoRecording: Boolean) {

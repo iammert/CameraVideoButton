@@ -2,6 +2,7 @@ package com.iammert.library.cameravideobutton
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import com.iammert.library.cameravideobuttonlib.CameraVideoButton
 
@@ -12,8 +13,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val videoRecordButton = findViewById<CameraVideoButton>(R.id.button)
-        videoRecordButton.setVideoDuration(1000)
-        videoRecordButton.actionListener = object : CameraVideoButton.ActionListener{
+        videoRecordButton.setVideoDuration(10000)
+        videoRecordButton.actionListener = object : CameraVideoButton.ActionListener {
+            override fun onCancelled() {
+                Log.v("TEST", "onCancelled")
+            }
+
             override fun onStartRecord() {
                 Log.v("TEST", "onStartRecord")
             }
@@ -31,5 +36,9 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
+        Handler().postDelayed(Runnable {
+            videoRecordButton.cancelRecording()
+        }, 5000)
     }
 }
