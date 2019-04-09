@@ -61,7 +61,7 @@ dependencies {
 ```
 
 ### Used Apps
-<a href="https://kunduz.com/"><img src="https://kunduz.com/wp-content/uploads/2018/12/icon-512x512.png" width="50" height="50"/></a>
+<a href="https://kunduz.com/"><img src="https://kunduz.com/wp-content/uploads/2018/12/icon-512x512.png" width="72" height="72"/></a>
 
 License
 --------
