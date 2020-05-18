@@ -217,7 +217,6 @@ class CameraVideoButton @JvmOverloads constructor(context: Context, attrs: Attri
             return
         }
 
-        isRecording = false
         endRecordTime = System.currentTimeMillis()
 
         innerCircleLongPressValueAnimator.setFloatValues(innerCircleCurrentSize, innerCircleMaxSize)
@@ -234,6 +233,7 @@ class CameraVideoButton @JvmOverloads constructor(context: Context, attrs: Attri
         if (isRecordTooShort(startRecordTime, endRecordTime, MINIMUM_VIDEO_DURATION_MILLIS)) {
             actionListener?.onDurationTooShortError()
         } else if (isRecording) {
+            isRecording = false
             actionListener?.onEndRecord()
         }
 
